@@ -1,0 +1,27 @@
+
+link(rel="stylesheet", href="css/style.css")
+nav.navbar
+  .logo Blog
+  a.toggle-button(href='#')
+    span.bar
+    span.bar
+    span.bar
+  .navbar-links
+    ul
+      li
+        a(href='/posts/add-form') Add Post
+.wrapper
+  .top  
+  .content
+if posts.length
+  each eachPost in posts
+      .card
+        h1 #{eachPost.titre}
+        h5 Auteur #{eachPost.auteur}
+        p.article-name Date: #{eachPost.createdAt}
+        h5 #{eachPost.resume}
+        p.text
+          | #{eachPost.content}
+        a(href=`/posts/post/${eachPost.id}`) Read More
+else
+    h1 No Post Found. Add a Post

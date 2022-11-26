@@ -10,7 +10,8 @@ head
         include ../public/css/style.css
     
 nav.navbar
-  .logo Blog
+  .logo
+    a(href='/posts') Blog
   a.toggle-button(href='#')
     span.bar
     span.bar
@@ -18,7 +19,7 @@ nav.navbar
   .navbar-links
     ul
       li
-        a(href='post/add') Add Post
+        a(href='/posts/add-form') Add Post
 body
     section
     .feed

@@ -9,9 +9,27 @@ html(lang="en")
         style
             include ../public/css/style.css
         .form
-            form( method='POST' enctype='multipart/form-data')
-                label(for='title') Blog title:
-                input#title(type='text' name='titre' required='')
-                label(for='body') Blog Content:
-                textarea#body(name='content' required='')
-                input(type='submit' name='sub') 
+          if (postToBeUpdated)
+            form( method='post' action='/posts/add')
+              label Blog title:
+              input#title( type='text' name='titre' value=postToBeUpdated.titre required='')
+              label Auteur:
+              input#title(type='text' name='auteur' value=postToBeUpdated.auteur required)
+              label Resume:
+              input#title(type='text' name='resume' value=postToBeUpdated.resume required='')
+              label Blog Content:
+              textarea#body(type='text' name='content' required='') #{postToBeUpdated.content}
+            
+              input(type='submit' name='sub')
+          else
+            form( method='post' action='/posts/add')
+              label Blog title:
+              input#title( type='text' name='titre' required='')
+              label Auteur:
+              input#title(type='text' name='auteur'  required)
+              label Resume:
+              input#title(type='text' name='resume'  required='')
+              label Blog Content:
+              textarea#body(type='text' name='content'  required='')
+              input(type='submit' name='sub')
+

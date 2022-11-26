@@ -1,4 +1,5 @@
 const pug = require("pug");
+const { findById } = require("../models/postModel");
 const Post = require("../models/postModel");
 
 /*
@@ -35,7 +36,8 @@ Access    Public
 */
 async function addPost(req, res) {
   //Créer un nouveau post dans myBlogdb et rediriger le client vers /
-
+  console.log("THIS IS THE BODY:");
+  console.log(req.body);
   const { titre, auteur, resume, content } = req.body;
   if (!titre || !auteur || !resume || !content) {
     res.status(400);
@@ -48,22 +50,20 @@ async function addPost(req, res) {
     content,
   });
   if (post) {
-    res.render("index");
-    // res.status(201).json({
-    //   _id: post.id,
-    //   titre: post.titre,
-    //   auteur: post.auteur,
-    //   resume: post.resume,
-    //   content: post.content,
-    // });
+    res.redirect(`/posts/post/${post.id}`);
   }
 }
-
+async function displayPostForm(req, res) {
+  const postToBeUpdated=false;
+  res.render("editPost",{
+    postToBeUpdated:postToBeUpdated,
+  });
+}
 async function editPost(req, res) {
   //Recupérer un post definie par son _id et renvoyer au client editPost.pug avec les donnée de ce post
-  // res.render("editPost");
-  res.status(200).json({
-    message: "It is working just fine.",
+  let postToBeUpdated=await Post.findById(req.params.id)
+  res.render("editPost",{
+    postToBeUpdated:postToBeUpdated,
   });
 }
 /*
@@ -91,16 +91,8 @@ Access    Public
 */
 async function deletePost(req, res) {
   //Suprimer un post et rediriger le client vers /
-  const post = await Post.findById(req.params.id);
-  if (!post) {
-    res.status(400).json({
-      message: "Cant Find Post",
-    });
-  }
   await Post.findByIdAndDelete(req.params.id);
-  res.status(200).json({
-    id: req.params.id,
-  });
+  res.redirect("/posts");
 }
 
 module.exports = {
@@ -110,4 +102,5 @@ module.exports = {
   updatePost,
   editPost,
   deletePost,
+  displayPostForm,
 };

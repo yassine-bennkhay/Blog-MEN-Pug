@@ -10,7 +10,8 @@ html(lang="en")
             include ../public/css/style.css
         .form
           if (postToBeUpdated)
-            form( method='post' action='/posts/add')
+            form( method='post' action="/posts/update")
+              input(type="hidden" name="id" value=postToBeUpdated.id )
               label Blog title:
               input#title( type='text' name='titre' value=postToBeUpdated.titre required='')
               label Auteur:

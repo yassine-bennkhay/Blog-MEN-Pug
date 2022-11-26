@@ -17,7 +17,7 @@ router.get("/add-form",displayPostForm)
 router.get("/edit-form/:id", editPost);
 router.get("/post/:id", getPost);
 router.post("/add", addPost);
-router.put("/add/:id", updatePost);
+router.post("/update", updatePost);
 router.get("/delete/:id", deletePost);
 
 module.exports = router;

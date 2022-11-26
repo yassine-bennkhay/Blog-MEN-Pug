@@ -36,8 +36,7 @@ Access    Public
 */
 async function addPost(req, res) {
   //Créer un nouveau post dans myBlogdb et rediriger le client vers /
-  console.log("THIS IS THE BODY:");
-  console.log(req.body);
+
   const { titre, auteur, resume, content } = req.body;
   if (!titre || !auteur || !resume || !content) {
     res.status(400);
@@ -54,16 +53,16 @@ async function addPost(req, res) {
   }
 }
 async function displayPostForm(req, res) {
-  const postToBeUpdated=false;
-  res.render("editPost",{
-    postToBeUpdated:postToBeUpdated,
+  const postToBeUpdated = false;
+  res.render("editPost", {
+    postToBeUpdated: postToBeUpdated,
   });
 }
 async function editPost(req, res) {
   //Recupérer un post definie par son _id et renvoyer au client editPost.pug avec les donnée de ce post
-  let postToBeUpdated=await Post.findById(req.params.id)
-  res.render("editPost",{
-    postToBeUpdated:postToBeUpdated,
+  let postToBeUpdated = await Post.findById(req.params.id);
+  res.render("editPost", {
+    postToBeUpdated: postToBeUpdated,
   });
 }
 /*
@@ -72,17 +71,12 @@ Access    Public
 */
 async function updatePost(req, res) {
   //metre à jour un post et rediriger le client vers ce post
-  const post = await Post.findById(req.params.id);
-  if (!post) {
-    res.status(400).json({
-      message: "Post Not Found",
-    });
-  }
-  const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  res.status(200).json(updatedPost);
-  res.end();
+  const { titre, auteur, resume, content } = req.body;
+
+  let iduser = req.body.id;
+  await Post.updateOne({ _id: iduser }, { titre, auteur, resume, content });
+
+  res.redirect("/posts/post/" + iduser);
 }
 
 /*

@@ -23,5 +23,6 @@ if posts.length
         p.text
           | #{eachPost.content}
         a(href=`/posts/post/${eachPost.id}`) Read More
+        a(href=`/posts/delete/${eachPost.id}`) Remove
 else
     h1 No Post Found. Add a Post

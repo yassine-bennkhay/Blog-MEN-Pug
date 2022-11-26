@@ -34,7 +34,6 @@ Route     POST api/posts/add
 Access    Public
 */
 async function addPost(req, res) {
- 
   //Créer un nouveau post dans myBlogdb et rediriger le client vers /
 
   const { titre, auteur, resume, content } = req.body;
@@ -62,7 +61,10 @@ async function addPost(req, res) {
 
 async function editPost(req, res) {
   //Recupérer un post definie par son _id et renvoyer au client editPost.pug avec les donnée de ce post
-  res.render("editPost");
+  // res.render("editPost");
+  res.status(200).json({
+    message: "It is working just fine.",
+  });
 }
 /*
 Route     PUT api/posts/edit/id

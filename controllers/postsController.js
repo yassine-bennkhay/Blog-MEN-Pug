@@ -73,10 +73,10 @@ async function updatePost(req, res) {
   //metre à jour un post et rediriger le client vers ce post
   const { titre, auteur, resume, content } = req.body;
 
-  let iduser = req.body.id;
-  await Post.updateOne({ _id: iduser }, { titre, auteur, resume, content });
+  let postId = req.body.id;
+  await Post.updateOne({ _id: postId }, { titre, auteur, resume, content });
 
-  res.redirect("/posts/post/" + iduser);
+  res.redirect("/posts/post/" + postId);
 }
 
 /*
